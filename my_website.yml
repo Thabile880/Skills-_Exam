@@ -1,0 +1,19 @@
+---
+- hosts: webservers
+
+  tasks:
+  - name: add lines to docker file
+    lineinfile:
+      path: "/home/devasc/labs/ansible/web_225224798/225224798/dockerfile"
+      line: |
+       FROM nginx:alpine
+       COPY ./225224798/index.html /usr/share/nginx/html/index.html/
+       EXPOSE 80
+       MODE: "0644"
+
+  - name: Build docker file
+    command: docker build -t web_225224798  /home/devasc/labs/ansible/web_225224798/225224798/
+
+
+  - name: run docker file
+    command: docker run -t -d -p 8085:80 --name site_225224798 website
